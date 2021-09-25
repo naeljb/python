@@ -148,3 +148,4 @@ deg_free =(len(income_before) + len(income_after)) - 1  # degree of freedom for 
 deg_free
 
 # Are there correlation among the variables?
+df.corr()
