@@ -34,20 +34,21 @@ df.isnull().sum()
 # SHAPE YOUR DATASET
 
 # how to input datset directly?   Here I'm inputing two datasets
-d1 = {'c':[1,2,3,4],'b':[5,6,7,8],'a':[9,10,11,12]}
-df1 =pd.DataFrame(d1)
-df1
+d1 = {'c':[1,2,3,4,5,8,15,45,7,3],'b':[5,6,7,8,5,6,7,8,9,10],'income':[9,10,11,12,5,6,7,9,5,45]}
+pre_test =pd.DataFrame(d1)
+pre_test
 
-d2 = {'a':[1,2,3,4],'b':[5,6,7,8],'c':[9,10,11,12]}
-df2 =pd.DataFrame(d2)
-df2
+d2 = {'income':[1,2,3,4,7,9,6,45,5,12],'b':[5,6,7,8,89,5,74,90,22,11],'c':[9,10,11,12,1,6,7,8,9,11]}
+post_test =pd.DataFrame(d2)
+post_test
 
 # how to re-order the columns?  here I'm re-ordering df1 dataset so that later I can append it to df2 dataset
-df1=df1[['a','b','c']]
-df1
+pre_test=pre_test[['income','b','c']]
+pre_test
 
 # how to append two datasets?
-df3 = pd.concat([df1,df2])
+df3 = pd.concat([pre_test,post_test])
+df3
 
 # how to drop columns?
 df=df.drop(['program','test_registration##recipient_link_key'], axis=1)
@@ -119,3 +120,31 @@ d2=({'#':counts,'percent':percents,'%':percents100})
 sex1=pd.DataFrame(d2)
 sex1
 
+# How to get the summary statistics of a sub-group (here statiscts for "male" sub group of "sex" column)
+male_df = df[df['sex']=='Male']  # creating my sub groupe dataset of male
+male_df.describe()
+
+# (here statiscts for "female" group of "sex" column)
+female_df = df[df['sex'] == 'Female']
+female_df.describe()
+
+# Are the means of two groups within a same variable/column satisticaly different?
+
+from scipy.stats import ttest_ind   # importing  independant t-test function   
+
+TwoTail = ttest_ind(male_df['age'],female_df['age'],equal_var = True)
+TwoTail  # result nterpretation: if p-value less than 0.05, means are statistically different
+
+# Are the means taken at two different times statistically different?
+income_before = pre_test['income'] # extracting income data before  from pre_test dataset
+income_after = post_test['income'] # extracting income data after from post_test dataset
+
+from scipy.stats import ttest_rel  # importing paired t-test function
+
+ttest_pair = ttest_rel(income_before,income_after)
+ttest_pair  # result nterpretation: if p-value less than 0.05, means are statistically different
+
+deg_free =(len(income_before) + len(income_after)) - 1  # degree of freedom for the paired t-test
+deg_free
+
+# Are there correlation among the variables?
