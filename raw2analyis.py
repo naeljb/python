@@ -48,7 +48,6 @@ df1
 
 # how to append two datasets?
 df3 = pd.concat([df1,df2])
-df3
 
 # how to drop columns?
 df=df.drop(['program','test_registration##recipient_link_key'], axis=1)
@@ -59,4 +58,34 @@ df =df[(df['age']>=18) & (df['age']<=24) & (df['city']!='miami')]
 
 # how to rename columns?  
 df.rename(columns={'recipient_name':'name','account_number':'account','vulnerability_level':'vulnerability','hh_size':'size','household_status':'status'},inplace=True)
-df.head(2)
+
+# TRANSFORM YOUR DATA
+
+# how to add a new column by applying an operation on another column? 
+df['indirect_bene']=df['size']*5
+
+# how to add a new column with a single value 
+df['beneficiaries'] = '1'
+
+# how to create a new column with a single condition applied on another column (option 1)?
+df['adulte']= df['age'].apply(lambda x: 'yes ' if x >18 else 'no')
+
+# how to create a new column with a single condition applied on another column (option 2)?
+def age_range(a):
+    if a['age'] > 18:
+        return 1
+    else:
+        return 0
+df ['adulte1'] =df.apply(age_range,axis=1)
+
+# how to create a new column with multiple conditions applied on another column?
+def age_range1(b):
+    if b['age'] > 11 and b['age']<30:
+        return 1
+    else:
+        return 0
+
+df ['youth'] =df.apply(age_range1,axis=1)
+
+# how to create a new column by changing the value labels of another column?
+df['sex_num']=df.sex.map({'Female':0,'Male':1})
