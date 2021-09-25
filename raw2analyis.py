@@ -89,3 +89,33 @@ df ['youth'] =df.apply(age_range1,axis=1)
 
 # how to create a new column by changing the value labels of another column?
 df['sex_num']=df.sex.map({'Female':0,'Male':1})
+
+# ANALYZE YOUR DATA
+
+# how to get summary statistics?
+df.describe()
+
+# how to get the upper and lower 95% intervall confidence values (option 1)?
+n = df['age']. count() # counting number of values in the column
+nsquart =math.sqrt(n)   # squar of n
+mean = df['age'].mean()
+std = df['age']. std()
+z = stats.norm.ppf(q=0.975)
+upper = mean +(z*(std/nsquart))
+lower = mean -(z*(std/nsquart))
+print(upper,lower)
+
+# how to get the upper and lower 95% intervall confidence values (option 2)?
+u_age = df['age'].mean() + (stats.norm.ppf(q=0.975)*(df['age']. std()/math.sqrt(df['age']. count())))
+l_age = df['age'].mean() - (stats.norm.ppf(q=0.975)*(df['age']. std()/math.sqrt(df['age']. count())))
+print (u_age,l_age)
+
+# how to get the percentage of each value label in a column?
+s = df['sex']
+counts= s.value_counts()
+percents=s.value_counts(normalize=True)
+percents100= s.value_counts(normalize=True).mul(100).round(1).astype(str)+"%"
+d2=({'#':counts,'percent':percents,'%':percents100})
+sex1=pd.DataFrame(d2)
+sex1
+
