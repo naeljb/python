@@ -62,6 +62,15 @@ df.rename(columns={'recipient_name':'name','account_number':'account','vulnerabi
 
 # TRANSFORM YOUR DATA
 
+# How to replace missing values in a column by the mean ?
+mean_age = df['age'].mean(axis=0)  # Calculation the mean for age variable
+df['age'].replace(np.nan,mean_age,inplace =True)
+
+# how to replace missing values in a column by the most frequent value in that column? 
+df['district'].value_counts() # Counting number of each value label in that column 
+df['district'].value_counts().idxmax() # identifying the value label with the maximun count(for my dataset, it will return 'est') 
+df['district'].replace(np.nan,'est',inplace =True)
+
 # how to add a new column by applying an operation on another column? 
 df['indirect_bene']=df['size']*5
 
