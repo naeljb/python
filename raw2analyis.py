@@ -100,6 +100,9 @@ df ['youth'] =df.apply(age_range1,axis=1)
 # how to create a new column by changing the value labels of another column?
 df['sex_num']=df.sex.map({'Female':0,'Male':1})
 
+# How to save my dataset with the Extracted,transformed into a directory? 
+df.to_csv('C:/Users/Nael/Desktop/mydataset.csv') # here saving my Desktop as a CSV file
+
 # ANALYZE YOUR DATA
 
 # how to get summary statistics?
