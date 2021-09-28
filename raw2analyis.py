@@ -134,6 +134,21 @@ d2=({'#':counts,'percent':percents,'%':percents100})
 sex1=pd.DataFrame(d2)
 sex1
 
+# how to do a cross tabublation (count) betwenn two columns ?  
+pd.crosstab(df['district'], df['sex'])
+
+# How to do a cross tabulation (count ) bar chart betwenn two columns? 
+pd.crosstab(df['district'], df['sex']).plot(kind = 'bar')
+plt.title('cross tabulation figure')
+plt.show()
+
+# how to do a cross tabublation (percentage) betwenn two columns ?
+pd.crosstab(df['district'], df['sex'], normalize ='all') #  (% over all value,normalize overall values )
+
+pd.crosstab(df['district'], df['sex'], normalize ='index') #  (% or normalize over each row )
+
+pd.crosstab(df['district'], df['sex'], normalize ='columns')  #  (% or normalize over each column )
+
 # How to get the summary statistics of a sub-group (here statiscts for "male" sub group of "sex" column)
 male_df = df[df['sex']=='Male']  # creating my sub groupe dataset of male
 male_df.describe()
