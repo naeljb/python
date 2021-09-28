@@ -3,20 +3,22 @@ import pandas as pd
 import numpy as np
 import math
 import scipy.stats as stats
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 # KNOW YOUR DATASET
 
-# How to load a dataset?
+# How to load my dataset?
 d = "https://raw.githubusercontent.com/naeljb/python/main/rawdata.csv"  # providing the dataset path
 df = pd.read_csv(d)    # reading the csv file and saving as df 
 
-# How to view the first five rows?
+# How to view the first five rows of my dataset?
 df.head()
 
-# How to view the last five rows?
+# How to view the last five rows of my dataset?
 df.tail()
 
-# What is the dataset size (number of rows and columns)?
+# What is the size of my dataset (number of rows and columns)?
 df.shape
 
 # How to get the column headers?
@@ -147,7 +149,7 @@ from scipy.stats import ttest_ind   # importing  independant t-test function
 TwoTail = ttest_ind(male_df['age'],female_df['age'],equal_var = True)
 TwoTail  # result nterpretation: if p-value less than 0.05, means are statistically different
 
-# Are the means taken at two different times statistically different?
+# Are the means taken on the same group but at two different times statistically different?
 income_before = pre_test['income'] # extracting income data before  from pre_test dataset
 income_after = post_test['income'] # extracting income data after from post_test dataset
 
@@ -159,5 +161,10 @@ ttest_pair  # result nterpretation: if p-value less than 0.05, means are statist
 deg_free =(len(income_before) + len(income_after)) - 1  # degree of freedom for the paired t-test
 deg_free
 
-# Are there correlation among the variables?
-df.corr()
+# Are there correlation among the variables (option 1table )?
+df.corr()  #
+
+# Are there correlation among the variables (option 2: heatmap  )?
+heatmap= sns.heatmap(df.corr(),cmap = 'Blues', annot = True)
+heatmap.set_title('Correlation heatmap', pad =12)
+plt.show()
