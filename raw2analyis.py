@@ -35,6 +35,9 @@ df.isnull().sum()
 
 # SHAPE YOUR DATASET
 
+# How to create new dataset which is a subset of columns of another dataset ?
+subset =df[['district','sex','age','hh_size']]
+
 # how to input datset directly?   Here I'm inputing two datasets
 d1 = {'c':[1,2,3,4,5,8,15,45,7,3],'b':[5,6,7,8,5,6,7,8,9,10],'income':[9,10,11,12,5,6,7,9,5,45]}
 pre_test =pd.DataFrame(d1)
@@ -149,8 +152,8 @@ pd.crosstab(df['district'], df['sex'], normalize ='index') #  (% or normalize ov
 
 pd.crosstab(df['district'], df['sex'], normalize ='columns')  #  (% or normalize over each column )
 
-# How to get the summary statistics of a sub-group (here statiscts for "male" sub group of "sex" column)
-male_df = df[df['sex']=='Male']  # creating my sub groupe dataset of male
+# How to create a subset (from a value of column) and getting the summary statistics of it?
+male_df = df[df['sex']=='Male']  # creating my subset of male
 male_df.describe()
 
 # (here statiscts for "female" group of "sex" column)
@@ -176,7 +179,7 @@ ttest_pair  # result nterpretation: if p-value less than 0.05, means are statist
 deg_free =(len(income_before) + len(income_after)) - 1  # degree of freedom for the paired t-test
 deg_free
 
-# Are there correlation among the variables (option 1table )?
+# Are there correlation among the variables (option 1: table )?
 df.corr()  #
 
 # Are there correlation among the variables (option 2: heatmap  )?
