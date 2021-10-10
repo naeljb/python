@@ -12,14 +12,17 @@ import seaborn as sns
 d = "https://raw.githubusercontent.com/naeljb/python/main/rawdata.csv"  # providing the dataset path
 df = pd.read_csv(d)    # reading the csv file and saving as df 
 
+# What is the size of my dataset (number of rows and columns)?
+df.shape
+
+# How to get the basic info on my dataset? 
+df.info()
+
 # How to view the first five rows of my dataset?
 df.head()
 
 # How to view the last five rows of my dataset?
 df.tail()
-
-# What is the size of my dataset (number of rows and columns)?
-df.shape
 
 # How to get the column headers?
 df.columns.values
@@ -66,6 +69,10 @@ df =df[(df['age']>=18) & (df['age']<=24) & (df['city']!='miami')]
 df.rename(columns={'recipient_name':'name','account_number':'account','vulnerability_level':'vulnerability','hh_size':'size','household_status':'status'},inplace=True)
 
 # TRANSFORM YOUR DATA
+
+# How to change type of data of a column ?
+df['age']=df['age'].astype('int')   # from float to integer
+df['id'] = df['id'].astype('float') # from integer to float
 
 # How to replace missing values in a column by the mean ?
 mean_age = df['age'].mean(axis=0)  # Calculation the mean for age variable
